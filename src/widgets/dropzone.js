@@ -17,8 +17,7 @@ export default Lang.Templatable("Widget.Dropzone", class Dropzone extends Widget
 	}
 	
 	Template() {
-		return  "<button class='file-upload-btn' type='button'>Add Files here</button>"+
-  "<div class='image-upload-wrap'>"+
+		return "<div class='image-upload-wrap'>"+ //"<button class='file-upload-btn' type='button'>Add Files here</button>"
    " <input  handle='input' class='file-upload-input' type='file' multiple/>"+
     "<div class='drag-text'>"+
      " <h3>Drag and drop files here</h3>"+

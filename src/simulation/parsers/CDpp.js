@@ -3,12 +3,9 @@
 import Lang from '../../utils/lang.js';
 import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
-import Frame from '../frame.js';
 import TransitionCA from '../transitionCA.js';
-import State from '../state.js';
 import Parser from "./parser.js";
 import Palette from '../palettes/basic.js';
-import SimulationCA from '../simulationCA.js';
 import ChunkReader from '../../components/chunkReader.js';
 
 export default class CDpp extends Parser { 
@@ -16,8 +13,8 @@ export default class CDpp extends Parser {
 	constructor(files) {
 		super(files);
 		
-		this.val = new Frame("00:00:00:000");
-		this.ma = new Frame("00:00:00:000");
+		this.val ;
+		this.ma ;
 	}
 	
 	IsValid() {
@@ -41,67 +38,43 @@ export default class CDpp extends Parser {
 	
 	Parse(files) {
 		var d = Lang.Defer();
-		var simulation = new SimulationCA();
+		
 		
 		var val = Array.Find(files, function(f) { return f.name.match(/.val/i); });
 		var pal = Array.Find(files, function(f) { return f.name.match(/.pal/i); });
 		var ma = Array.Find(files, function(f) { return f.name.match(/.ma/i); });
 		var log = Array.Find(files, function(f) { return f.name.match(/.log/i); });
 		
-		var p1 = Sim.ParseFile(val, this.ParseValFile.bind(this, simulation));
-		var p2 = Sim.ParseFile(pal, this.ParsePalFile.bind(this, simulation));
-		var p3 = Sim.ParseFile(ma, this.ParseMaFile.bind(this, simulation));
-		var p4 = Sim.ParseFileByChunk(log, this.ParseLogChunk.bind(this, simulation));
+		var p1 = Sim.ParseFile(val, this.ParseValFile.bind(this));
+		var p2 = Sim.ParseFile(pal, this.ParsePalFile.bind(this));
+		var p3 = Sim.ParseFile(ma, this.ParseMaFile.bind(this));
+		var p4 = Sim.ParseFileByChunk(log, this.ParseLogChunk.bind(this));
 			
 		var defs = [p1, p2, p3, p4];
 	
 		Promise.all(defs).then((data) => {
-			var f = this.MergeFrames(this.ma, this.val);
-			
-			if (f.transitions.length > 0) {
-				f.time = "00:00:00:000";
-				simulation.frames.unshift(f);
-				simulation.index[f.time] = f;
-			}
+
 			
 			var info = {
 				simulator : "CDpp",
 				name : log.name.replace(/\.[^.]*$/, ''),
 				files : files,
-				lastFrame : simulation.LastFrame().time,
-				nFrames : simulation.frames.length
 			}
 		
 			// Build models array from size
-			simulation.LoopOnSize((x,y,z) => { 
-				simulation.models.push(TransitionCA.CoordToId([x,y,z]));
+			
 			});
 			
 		//	simulation.Initialize(info, settings);
 		
-			d.Resolve(simulation);
-		});
+			d.Resolve();
+		
 		
 		return d.promise;
 	}
 	
-	MergeFrames(f1, f2) {
-		// f2 over f1, modifies f1, who cares.
-		f2.transitions.forEach(function(t2) {
-			// frame 1 has transition id from frame 2, replace
-			if (f1.index[t2.id])  {
-				f1.index[t2.id].value = t2.value;
-				f1.index[t2.id].diff = t2.diff;
-			}
-			
-			// frame 1 doesn't have transition id from frame 2, add it
-			else f1.AddTransition(t2);
-		});
-		
-		return f1;
-	}
 	
-	ParseValFile(simulation, file) {
+	ParseValFile( file) {
 		// Each line looks like this: (y,x,z)=value
 		file.split(/\n/).forEach(function(line) {
 			if (line.length < 4) return; // probably empty line
@@ -116,11 +89,11 @@ export default class CDpp extends Parser {
 			var coord = this.GetCoord(split);
 			var v = parseFloat(line.substr(vI + 1));
 			
-			this.val.AddTransition(new TransitionCA(coord, v));
+		//	this.val.AddTransition(new TransitionCA(coord, v));
 		}.bind(this));
 	}
 	
-	ParseMaFile(simulation, file) {
+	ParseMaFile( file) {
 		// Dimensions		
 		var dim = null;
 		var raw = file.match(/dim\s*:\s*\((.+)\)/);
@@ -136,56 +109,21 @@ export default class CDpp extends Parser {
 		
 		if (dim.length == 2) dim.push(1);
 		
-		simulation.size = [+dim[1], +dim[0], +dim[2]];
+		this.size = [+dim[1], +dim[0], +dim[2]];
 		
-		var global = this.GlobalFrame(simulation, file);
-		var rows = this.RowsFrame(file);
 		
-		this.ma = this.MergeFrames(global, rows);
+		
+	//	this.ma = this.MergeFrames(global, rows);
 	}
 	
-	GlobalFrame(simulation, file) {
-		var f = new Frame("00:00:00:000");
-		var raw = file.match(/initialvalue\s*:\s*(.+)/);
-		
-		if (!raw || raw[1] == "0") return f;
-		
-		simulation.LoopOnSize((x,y,z) => {  
-			f.AddTransition(new TransitionCA([x, y, z], +raw[1]));
-		});
-		
-		return f;
-	}
 	
-	RowsFrame(file) {
-		var f = new Frame("00:00:00:000");
-		var raw = file.matchAll(/initialrowvalue\s*:\s*(.+)/g);
-		
-		if (!raw) return f;
-		
-		for (const r of raw) {
-			var d = r[1].split(/\s+/);
-			var values = d[1].split('');
-			
-			for (var x = 0; x < values.length; x++) {
-				var v = +values[x];
-				
-				if (v == 0) continue;
-					
-				f.AddTransition(new TransitionCA([x, y, z], v));
-			}
-		}
-		
-		return f;
-	}
-	
-	ParsePalFile(simulation, file) {	
+	ParsePalFile(file) {	
 		var lines = file.split(/\n/);
-		simulation.palette = new Palette();
+		//simulation.palette = new Palette();
 		
-		if (lines[0].indexOf('[') != -1) this.ParsePalTypeA(simulation.palette, lines);
+		if (lines[0].indexOf('[') != -1) this.ParsePalTypeA(this.palette, lines);
 			
-		else this.ParsePalTypeB(simulation.palette, lines);
+		else this.ParsePalTypeB(this.palette, lines);
 	}	
 	
 	ParsePalTypeA(palette, lines) {
@@ -208,7 +146,7 @@ export default class CDpp extends Parser {
 			var g = parseInt(rgb[1], 10);
 			var b = parseInt(rgb[2], 10);
 			
-			palette.AddClass(begin, end, [r, g, b]);
+		//	palette.AddClass(begin, end, [r, g, b]);
 		});
 	}
 	
@@ -241,7 +179,7 @@ export default class CDpp extends Parser {
 		}
 	}
 		
-	ParseLogChunk(simulation, chunk, progress) {
+	ParseLogChunk( chunk, progress) {
 		var lines = [];
 		var start = chunk.indexOf('Mensaje Y', 0);
 			
@@ -273,11 +211,11 @@ export default class CDpp extends Parser {
 			var val = parseFloat(split[4]);
 			var fId = split[1].trim();
 						
-			var f = simulation.Index(fId) || simulation.AddFrame(new Frame(fId));
+			//var f = simulation.Index(fId) || simulation.AddFrame(new Frame(fId));
 			
-			f.AddTransition(new TransitionCA(coord, val));
+			//f.AddTransition(new TransitionCA(coord, val));
 		}.bind(this));
-		console.log(simulation.frames);
+		//console.log(simulation.frames);
 		this.Emit("Progress", { progress: progress });
 	}
 	

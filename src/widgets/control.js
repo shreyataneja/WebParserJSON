@@ -58,7 +58,7 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 	
 	onParserDetected_Handler(ev) {
 		this.parser = ev.result;
-		console.log(this.parser);
+	//	console.log(this.parser);
 		var json = Array.Find(this.files, function(f) { return f.name.match(/.json/i); });
 		
 		var success = this.onConfigParsed_Handler.bind(this);
@@ -85,7 +85,7 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 				   
 					 
 						 "<div handle='dropzone' class='dropzone' widget='Widget.Dropzone'></div>" +
-						 "<button handle='dbSave' class='file-save-btn' >nls(Main_DashBoard_Save)</button>" +
+						 "<button handle='dbSave' class='file-save-btn' >Parse files</button>" +
 						  "</div>" +
 					  
 					  "<div >" ;

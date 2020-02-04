@@ -68,8 +68,9 @@ export default class FSM extends Parser {
 	
 	ParseTxtFile( chunk, progress) {		
 		var lines = [];
-		var start = chunk.indexOf('State', 0);
-	
+		var linesState =[];
+		 var start = chunk.indexOf('00', 0);
+
 		while (start > -1 && start < chunk.length) {			
 			var end = chunk.indexOf('\n', start);
 			
@@ -79,10 +80,42 @@ export default class FSM extends Parser {
 			
 			lines.push(chunk.substr(start, length));
 
-			var start = chunk.indexOf('State', start + length);
+			var start = chunk.indexOf('00', start + length);
+		}
+		linesState = (chunk.split("\n"));
+		//console.log(linesState.length);
+		
+		var i=0;
+		var j=0;
+		while(i<linesState.length)
+		{
+			if(linesState[i].startsWith('00'))
+				
+				{
+					console.log(linesState[i]);
+					j=i+1;
+
+					while(j<linesState.length)
+				{
+					if(linesState[j].startsWith('State'))
+				
+				{
+					console.log(j);
+
+					j++;
+				}
+
+				else
+					{		j++;
+							break;
+					}
+				}
+			}
+				
+
+			i++;
 		}
 		
-		console.log(lines);
 		this.Emit("Progress", { progress: progress });
 	}
 }
