@@ -144,7 +144,8 @@ export default class DEVS extends Parser {
 			var v = parseFloat(split[4]);
 			var fId = split[1].trim();
 						
-			
+			//var a = new ParsedValues(frame, model, state,input, output,error,phase);
+			//		this.parsedValues.push(a);
 			var a = new Transition(id, v);
 			this.transitions.push(a);
 		
