@@ -3,16 +3,16 @@
 import Lang from '../../utils/lang.js';
 import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
-import Transition from '../transition.js';
+import ParsedValues from '../parsedValues.js';
 import Parser from "./parser.js";
 import ChunkReader from '../../components/chunkReader.js';
 
 export default class FSM extends Parser { 
 		
 	constructor(fileList) {
-		super(fileList);
+		super(fileList); 
 		
-		this.transitions = [];
+		this.parsedValues = [];
 	}
 		
 	IsValid() {		
@@ -92,17 +92,45 @@ export default class FSM extends Parser {
 			if(linesState[i].startsWith('00'))
 				
 				{
-					console.log(linesState[i]);
+					
 					j=i+1;
 
 					while(j<linesState.length)
 				{
 					if(linesState[j].startsWith('State'))
 				
-				{
-					console.log(j);
+				{	
+					if(linesState[j].includes('input_reader'))
+					{		j++;
+							
+					}
+
+					else
+					{
+						var frame = linesState[i];
+						var arr= linesState[j].split("&");
+						var modelState = arr[0].split(" ");
+						var model = modelState[modelState.indexOf("model")+1];
+
+						var state = modelState[modelState.indexOf("State:")+1];
+						
+
+						var o = arr[1].split(":");
+						var output = o[1].trim();
+
+						var e = arr[2].split(":");
+						var error = e[1].trim();
+
+						var p = arr[3].split(":");
+						var phase = p[1].trim();
+
+						var input = "";
+
+					var a = new ParsedValues(frame, model, state,input, output,error,phase);
+					this.parsedValues.push(a);
 
 					j++;
+					}
 				}
 
 				else
@@ -115,7 +143,7 @@ export default class FSM extends Parser {
 
 			i++;
 		}
-		
+		console.log(this.parsedValues);
 		this.Emit("Progress", { progress: progress });
 	}
 }
