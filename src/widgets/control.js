@@ -32,11 +32,12 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 		
 		this.Emit("Ready", {  config:this.config });
 	}
-	onLoadClick_Handler() {
+	onLoadClick_Handler(ev) {
 	
 		
 		this.parser.Parse(this.files).then((ev) => { this.LoadSimulation(ev.result); });
 		this.Emit("Save");
+		
 	}
 
 	onDropzoneChange_Handler(ev) {
@@ -52,7 +53,6 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 
 	onConfigParsed_Handler(ev) {
 		this.config = ev.result;
-		
 	
 	}	
 	

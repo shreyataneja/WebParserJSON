@@ -23,9 +23,6 @@ export default class Main extends Widget {
 	}
 	
 	onControlReady_Handler(ev) {
-	
-		//this.simulation = ev.simulation;
-		
 		//if (ev.config) this.session.Load(ev.config);
 		
 	}
@@ -34,17 +31,33 @@ export default class Main extends Widget {
 		alert(ev.error.ToString())
 	}
 	
-	onControlSave_Handler() {
-		
-		//Net.Download("help" + ".json", this.Save());
+	onControlSave_Handler(ev) {
+		//this.target = ev.target.parser;
+		//this.fileName = this.target.files[0].name.split(".");
+		//console.log(ev.target.parser);
+
+
+		//var myJSON = JSON.stringify(this.target.parsedValues);
+		 //var array = typeof myJSON != 'object' ? JSON.parse(myJSON) : myJSON;
+           // var str = '';
+ 
+            //for (var i = 0; i < array.length; i++) {
+              //  var line = '';
+                //for (var index in array[i]) {
+                  //  if (line != '') line += ','
+ 
+                    //line += array[i][index];
+                //}
+ 
+                //str += line + '\r\n';
+            //}
+ 
+		//console.log(myJSON);
+
+	//	Net.Download("this.fileName[0]" + ".csv", this.Save());
+	
 	}
 
-	Save() {
-		return JSON.stringify({ 
-		//	simulation : this.simulation.Save(),
-			});
-	}
-	
 	
 	Template() {
 		return	"<div class='main'>" +

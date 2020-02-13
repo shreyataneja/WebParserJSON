@@ -3,6 +3,7 @@
 import Lang from '../../utils/lang.js';
 import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
+import Net from '../../utils/net.js';
 import ParsedValues from '../parsedValues.js';
 import Parser from "./parser.js";
 import ChunkReader from '../../components/chunkReader.js';
@@ -143,7 +144,29 @@ export default class FSM extends Parser {
 
 			i++;
 		}
-		console.log(this.parsedValues);
+		var myJSON = JSON.stringify(this.parsedValues);
+		 var array = typeof myJSON != 'object' ? JSON.parse(myJSON) : myJSON;
+            
+  			var keys = [];
+   			for(var index in array[0]) keys.push(index);
+   				var str = keys.join();
+   			str +=   '\r\n';
+            for (var i = 0; i < array.length; i++) {
+                var line = '';
+                for (var index in array[i]) {
+                    if (line != '') line += ','
+ 
+                    line += array[i][index];
+
+                }
+ 
+                str += line + '\r\n';
+            }
+ 
+		
+		this.fileName = this.files[0].name.split(".");
+
+		Net.Download(this.fileName[0] + ".csv", str);
 		this.Emit("Progress", { progress: progress });
 	}
 }
