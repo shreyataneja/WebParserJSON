@@ -3,8 +3,7 @@
 import Lang from '../../utils/lang.js';
 import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
-import Net from '../../utils/net.js';
-import ParsedValues from '../parsedValues.js';
+import TransitionCSV from '../transitionCSV.js';
 import Parser from "./parser.js";
 import ChunkReader from '../../components/chunkReader.js';
 
@@ -13,7 +12,7 @@ export default class FSM extends Parser {
 	constructor(fileList) {
 		super(fileList); 
 		
-		this.parsedValues = [];
+		this.transitionCSV = [];
 	}
 		
 	IsValid() {		
@@ -35,14 +34,11 @@ export default class FSM extends Parser {
 	}
 	
 	Parse(files) {
-		var d = Lang.Defer();
-		
 		
 		var txt = Array.Find(files, function(f) { return f.name.match(/.txt/i); });
-		//var svg = Array.Find(files, function(f) { return f.name.match(/.svg/i); });
-
+	
 		var p1 = Sim.ParseFile(txt, this.ParseTxtFile.bind(this));
-		//var p2 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
+
 
 		var defs = [p1];
 	
@@ -54,16 +50,11 @@ export default class FSM extends Parser {
 				files : files,
 			
 			}
-			
-			//this.size = this.ma.models.length;
-			//this.models = this.ma.models;
-			//this.svg=this.svg;
-			//simulation.Initialize(info, settings);
 
-			d.Resolve();
 		});
-		
-		return d.promise;
+
+	
+		return p1;
 	}
 
 	
@@ -84,7 +75,6 @@ export default class FSM extends Parser {
 			var start = chunk.indexOf('00', start + length);
 		}
 		linesState = (chunk.split("\n"));
-		//console.log(linesState.length);
 		
 		var i=0;
 		var j=0;
@@ -113,7 +103,7 @@ export default class FSM extends Parser {
 						var modelState = arr[0].split(" ");
 						var model = modelState[modelState.indexOf("model")+1];
 
-						var state = modelState[modelState.indexOf("State:")+1];
+						var stateValue = modelState[modelState.indexOf("State:")+1];
 						
 
 						var o = arr[1].split(":");
@@ -127,8 +117,8 @@ export default class FSM extends Parser {
 
 						var input = "";
 
-					var a = new ParsedValues(frame, model, state,input, output,error,phase);
-					this.parsedValues.push(a);
+					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					this.transitionCSV.push(a);
 
 					j++;
 					}
@@ -144,29 +134,7 @@ export default class FSM extends Parser {
 
 			i++;
 		}
-		var myJSON = JSON.stringify(this.parsedValues);
-		 var array = typeof myJSON != 'object' ? JSON.parse(myJSON) : myJSON;
-            
-  			var keys = [];
-   			for(var index in array[0]) keys.push(index);
-   				var str = keys.join();
-   			str +=   '\r\n';
-            for (var i = 0; i < array.length; i++) {
-                var line = '';
-                for (var index in array[i]) {
-                    if (line != '') line += ','
- 
-                    line += array[i][index];
-
-                }
- 
-                str += line + '\r\n';
-            }
- 
-		
-		this.fileName = this.files[0].name.split(".");
-
-		Net.Download(this.fileName[0] + ".csv", str);
-		this.Emit("Progress", { progress: progress });
+	
+		return this.transitionCSV;
 	}
 }

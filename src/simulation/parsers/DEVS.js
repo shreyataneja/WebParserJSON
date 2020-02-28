@@ -4,8 +4,8 @@ import Lang from '../../utils/lang.js';
 import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
 import Transition from '../transition.js';
-import ParsedValues from '../parsedValues.js';
 import Parser from "./parser.js";
+import TransitionCSV from '../transitionCSV.js';
 import ChunkReader from '../../components/chunkReader.js';
 
 export default class DEVS extends Parser { 
@@ -13,13 +13,14 @@ export default class DEVS extends Parser {
 	constructor(fileList) {
 		super(fileList);
 		this.transitions = [];
+		this.transitionCSV = [];
 	}
 		
 	IsValid() {		
 		var d = Lang.Defer();
 		var log = Array.Find(this.files, function(f) { return f.name.match(/.log/i); });
 		var ma = Array.Find(this.files, function(f) { return f.name.match(/.ma/i); });
-		var svg = Array.Find(this.files, function(f) { return f.name.match(/.svg/i); });
+		//var svg = Array.Find(this.files, function(f) { return f.name.match(/.svg/i); });
 		
 		// TODO : This should reject
 		if (!log || !ma ) d.Resolve(false);
@@ -42,13 +43,13 @@ export default class DEVS extends Parser {
 		
 		var ma = Array.Find(files, function(f) { return f.name.match(/.ma/i); });
 		var log = Array.Find(files, function(f) { return f.name.match(/.log/i); });
-		var svg = Array.Find(files, function(f) { return f.name.match(/.svg/i); });
+		//var svg = Array.Find(files, function(f) { return f.name.match(/.svg/i); });
 
 		var p1 = Sim.ParseFile(ma, this.ParseMaFile.bind(this));
 		var p2 = Sim.ParseFileByChunk(log, this.ParseLogChunk.bind(this));
-		var p3 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
+		//var p3 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
 
-		var defs = [p1, p2,p3];
+		var defs = [p1, p2];
 	
 		Promise.all(defs).then((data) => {
 			
@@ -61,18 +62,15 @@ export default class DEVS extends Parser {
 			
 			this.size = this.ma.models.length;
 			this.models = this.ma.models;
-			this.svg=this.svg;
-			//simulation.Initialize(info, settings);
-
+			
 			d.Resolve();
 		});
 		
-		return d.promise;
+		console.log(p2);
+
+		return p2;
 	}
-	ParseSVGFile( file) 
-	{
-		this.svg=file;
-	}
+
 	ParseMaFile( file) {
 		var models = file.match(/(?<=\[).+?(?=\])/g);
 		
@@ -112,49 +110,54 @@ export default class DEVS extends Parser {
 
 		var safe = [];
 		Array.ForEach(linesX, function(line) {
-			var split = line.split("/");
-			
-			// Parse model id
-			var id = split[3].trim();
-			
-			
-			if (id.length < 1) return;
-			
-			// Parse state value, timestamp used as frame id
-			var v = parseFloat(split[4]);
-			var fId = split[1].trim();
-			
 		
-			var a = new Transition(id, v);
-			this.transitions.push(a);
-		
-		//	f.AddTransition(new Transition(id, v));
+		var split = line.split("/");
 			
+						var frame = split[1].trim();
+						
+						var model = split[2].substring(0,  split[2].indexOf('(')).trim();
+
+						var stateValue = parseFloat(split[4]);
+						
+						var input = split[3].trim();
+
+						var error =  "";
+						
+						var phase =  "";
+
+						var output = "";
+
+					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					this.transitionCSV.push(a);
+		
 		}.bind(this));
+
+
+
 		Array.ForEach(lines, function(line) {
 			var split = line.split("/");
+		
 			
-			// Parse model id
-			var id = split[3].trim();
-			
-			
-			if (id.length < 1) return;
-			
-			// Parse state value, timestamp used as frame id
-			var v = parseFloat(split[4]);
-			var fId = split[1].trim();
+					
+						var frame = split[1].trim();
 						
-			//var a = new ParsedValues(frame, model, state,input, output,error,phase);
-			//		this.parsedValues.push(a);
-			var a = new Transition(id, v);
-			this.transitions.push(a);
+						
+						var model = split[2].substring(0,  split[2].indexOf('(')).trim();
+
+						var stateValue = parseFloat(split[4]);
+						
+						var output = split[3].trim();
+
+						var error =  "";
+						
+						var phase =  "";
+
+						var input =  "";
+
+					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					this.transitionCSV.push(a);
 		
 		}.bind(this));
-
-	
-		console.log(this.transitions);
-
-
-		this.Emit("Progress", { progress: progress });
+return this.transitionCSV;
 	}
 }

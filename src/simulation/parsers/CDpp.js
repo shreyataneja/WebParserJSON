@@ -5,7 +5,7 @@ import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
 import TransitionCA from '../transitionCA.js';
 import Parser from "./parser.js";
-import Palette from '../palettes/basic.js';
+
 import ChunkReader from '../../components/chunkReader.js';
 
 export default class CDpp extends Parser { 

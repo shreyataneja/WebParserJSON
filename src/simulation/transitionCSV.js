@@ -1,12 +1,12 @@
 'use strict';
 
-export default class ParsedValues { 
+export default class TransitionCSV { 
 
-	constructor(frame, model, state, input, output, errorMsg, phase) {
+	constructor(frame, model, stateValue, input, output, errorMsg, phase) {
 
 		this.frame = frame;
 		this.model = model;
-		this.state = state;
+		this.stateValue = stateValue;
 		this.input = input;
 		this.output = output;
 		this.errorMsg = errorMsg;
@@ -21,8 +21,8 @@ export default class ParsedValues {
 		return this.model;
 	}
 	
-	get State() {
-		return this.state;
+	get StateValue() {
+		return this.stateValue;
 	}
 
 	get Input() {

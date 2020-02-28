@@ -4,7 +4,7 @@ import Lang from '../utils/lang.js';
 import Array from '../utils/array.js';
 import Widget from '../ui/widget.js';
 import Dropzone from './dropzone.js';
-
+import Net from '../utils/net.js';
 
 export default Lang.Templatable("Widget.Control", class Control extends Widget { 
 
@@ -18,6 +18,7 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 		this.config = null;
 		this.parser = null;
 		this.collapsed = false;
+		this.csv= "";
 		
 		this.Node("dbSave").addEventListener("click", this.onLoadClick_Handler.bind(this));
 		this.Node("dropzone").On("Change", this.onDropzoneChange_Handler.bind(this));
@@ -25,19 +26,37 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 		
 	}
 
-	LoadSimulation() {
+	DownloadCSV(transition)
+	{
 
-	
-		this.Node("dbSave").disabled = false;
-		
-		this.Emit("Ready", {  config:this.config });
+		var myJSON = JSON.stringify(transition);
+		 var array = typeof myJSON != 'object' ? JSON.parse(myJSON) : myJSON;
+            
+  			var keys = [];
+   			for(var index in array[0]) keys.push(index);
+   				var CSVstring = keys.join();
+   			CSVstring +=   '\r\n';
+            for (var i = 0; i < array.length; i++) {
+                var line = '';
+                for (var index in array[i]) {
+                    if (line != '') line += ','
+ 
+                    line += array[i][index];
+
+                }
+ 
+                CSVstring += line + '\r\n';
+            }
+		this.fileName = this.files[0].name.split(".");
+
+		Net.Download(this.fileName[0] + ".csv", CSVstring);
 	}
+
 	onLoadClick_Handler(ev) {
-	
 		
-		this.parser.Parse(this.files).then((ev) => { this.LoadSimulation(ev.result); });
-		this.Emit("Save");
+		this.parser.Parse(this.files).then((ev) => { this.DownloadCSV(ev.result); });
 		
+		this.Emit("Save");	
 	}
 
 	onDropzoneChange_Handler(ev) {

@@ -52,7 +52,7 @@ export default class Sim {
 		
 		if (!file) d.Resolve(null);
 		
-		ParseFileChunk();
+		else ParseFileChunk();
 		
 		return d.promise;
 		
@@ -63,11 +63,11 @@ export default class Sim {
 				
 				reader.MoveCursor(content.length + 1);
 				
-				parser(content, 100 * reader.position / file.size);
+				var parserContent = parser(content, 100 * reader.position / file.size);
 				
 				if (reader.position < file.size) ParseFileChunk();
 				
-				else if (reader.position == file.size) d.Resolve(content);
+				else if (reader.position == file.size) d.Resolve(parserContent);
 				
 				else throw new Error("Reader position exceeded the file size.");
 			});
