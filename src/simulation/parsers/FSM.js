@@ -62,7 +62,7 @@ export default class FSM extends Parser {
 			d.Resolve(simulation);
 
 		});
-
+console.log(p1);
 	
 		return d.promise;
 

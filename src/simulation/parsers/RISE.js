@@ -6,7 +6,10 @@ import Sim from '../../utils/sim.js';
 import TransitionCSV from '../transitionCSV.js';
 import Parser from "./parser.js";
 import ChunkReader from '../../components/chunkReader.js';
+<<<<<<< HEAD
 import Simulation from '../simulation.js';
+=======
+>>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
 
 export default class RISE extends Parser { 
 	
@@ -29,7 +32,11 @@ export default class RISE extends Parser {
 	
 	Parse(files) {
 		var d = Lang.Defer();
+<<<<<<< HEAD
 		var simulation = new Simulation();
+=======
+		
+>>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
 		
 		var log = Array.Find(files, function(f) { return f.name.match(/.log/i); });
 
@@ -44,6 +51,7 @@ export default class RISE extends Parser {
 				name : log.name.replace(/\.[^.]*$/, ''),
 				files : files,
 			}
+<<<<<<< HEAD
 			simulation.transition = this.transitionCSV;
 			simulation.Initialize(info);
 
@@ -54,6 +62,17 @@ export default class RISE extends Parser {
 		
 		
 		return d.promise;
+=======
+		
+
+			d.Resolve();
+		
+			});
+		
+		
+		
+		return p;
+>>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
 	}
 		
 	ParseLogChunk( chunk, progress) {

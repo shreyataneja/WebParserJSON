@@ -42,12 +42,21 @@ export default class DEVS extends Parser {
 		var d = Lang.Defer();
 		var simulation = new Simulation();
 		
+<<<<<<< HEAD
+=======
+		
+		
+>>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
 		var log = Array.Find(files, function(f) { return f.name.match(/.log/i); });
 		var svg = Array.Find(files, function(f) { return f.name.match(/.svg/i); });
 
 		
 		var p1 = Sim.ParseFileByChunk(log, this.ParseLogChunk.bind(this));
+<<<<<<< HEAD
 		var p2 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
+=======
+		//var p2 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
+>>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
 
 		var defs = [p1, p2];
 	
@@ -59,6 +68,7 @@ export default class DEVS extends Parser {
 				files : files,
 			
 			}
+<<<<<<< HEAD
 
 			simulation.transition = this.transitionCSV;
 			simulation.svg=this.svg;
@@ -76,6 +86,22 @@ export default class DEVS extends Parser {
 		this.svg=file;
 		
 	}
+=======
+						
+			d.Resolve();
+		});
+
+		return p1;
+	}
+
+//	ParseSVGFile( file) 
+//	{	
+	//	this.svg=file;
+		//var a = new TransitionCSV("", "", "","", "","","","","",this.svg);
+		//this.transitionCSV.push(a);
+		
+	//}
+>>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
 
 
 	ParseLogChunk( chunk, progress) {		
