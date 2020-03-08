@@ -3,7 +3,6 @@
 import Lang from '../../utils/lang.js';
 import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
-import Transition from '../transition.js';
 import Parser from "./parser.js";
 import TransitionCSV from '../transitionCSV.js';
 import ChunkReader from '../../components/chunkReader.js';
@@ -12,7 +11,7 @@ export default class DEVS extends Parser {
 		
 	constructor(fileList) {
 		super(fileList);
-		this.transitions = [];
+		this.svg ;
 		this.transitionCSV = [];
 	}
 		
@@ -41,13 +40,13 @@ export default class DEVS extends Parser {
 		var d = Lang.Defer();
 		
 		
-		var ma = Array.Find(files, function(f) { return f.name.match(/.ma/i); });
+		
 		var log = Array.Find(files, function(f) { return f.name.match(/.log/i); });
 		//var svg = Array.Find(files, function(f) { return f.name.match(/.svg/i); });
 
-		var p1 = Sim.ParseFile(ma, this.ParseMaFile.bind(this));
-		var p2 = Sim.ParseFileByChunk(log, this.ParseLogChunk.bind(this));
-		//var p3 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
+		
+		var p1 = Sim.ParseFileByChunk(log, this.ParseLogChunk.bind(this));
+		//var p2 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
 
 		var defs = [p1, p2];
 	
@@ -59,26 +58,22 @@ export default class DEVS extends Parser {
 				files : files,
 			
 			}
-			
-			this.size = this.ma.models.length;
-			this.models = this.ma.models;
-			
+						
 			d.Resolve();
 		});
-		
-		console.log(p2);
 
-		return p2;
+		return p1;
 	}
 
-	ParseMaFile( file) {
-		var models = file.match(/(?<=\[).+?(?=\])/g);
+//	ParseSVGFile( file) 
+//	{	
+	//	this.svg=file;
+		//var a = new TransitionCSV("", "", "","", "","","","","",this.svg);
+		//this.transitionCSV.push(a);
 		
-		this.ma = { 
-			models : Array.Map(models, (m) => { return m.toLowerCase(); })
-		};
-	}
-	
+	//}
+
+
 	ParseLogChunk( chunk, progress) {		
 		var lines = [];
 		var start = chunk.indexOf('Mensaje Y', 0);
@@ -121,13 +116,9 @@ export default class DEVS extends Parser {
 						
 						var input = split[3].trim();
 
-						var error =  "";
 						
-						var phase =  "";
 
-						var output = "";
-
-					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					var a = new TransitionCSV(frame, model, stateValue,input, "","","","","");
 					this.transitionCSV.push(a);
 		
 		}.bind(this));
@@ -148,16 +139,12 @@ export default class DEVS extends Parser {
 						
 						var output = split[3].trim();
 
-						var error =  "";
-						
-						var phase =  "";
 
-						var input =  "";
-
-					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					var a = new TransitionCSV(frame, model, stateValue,"", output,"","","","");
 					this.transitionCSV.push(a);
 		
 		}.bind(this));
+
 return this.transitionCSV;
 	}
 }

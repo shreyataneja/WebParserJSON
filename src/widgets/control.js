@@ -47,9 +47,16 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
  
                 CSVstring += line + '\r\n';
             }
-		this.fileName = this.files[0].name.split(".");
-
-		Net.Download(this.fileName[0] + ".csv", CSVstring);
+        var log = Array.Find(this.files, function(f) { return f.name.match(/.log/i); });
+		if(log)
+		{
+			this.fileName = log.name.split(".");
+		}
+		else
+{ var txt = Array.Find(this.files, function(f) { return f.name.match(/.txt/i); });
+this.fileName = txt.name.split(".");
+}
+		Net.Download(this.fileName + ".csv", CSVstring);
 	}
 
 	onLoadClick_Handler(ev) {

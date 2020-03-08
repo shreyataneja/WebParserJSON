@@ -3,18 +3,18 @@
 import Lang from '../../utils/lang.js';
 import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
-import TransitionCA from '../transitionCA.js';
+import TransitionCSV from '../transitionCSV.js';
 import Parser from "./parser.js";
-
 import ChunkReader from '../../components/chunkReader.js';
 
 export default class CDpp extends Parser { 
 	
 	constructor(files) {
 		super(files);
-		
+		this.transitionCSV = [];
 		this.val ;
 		this.ma ;
+		this.pal;
 	}
 	
 	IsValid() {
@@ -64,121 +64,27 @@ export default class CDpp extends Parser {
 			// Build models array from size
 			
 			});
-			
-		//	simulation.Initialize(info, settings);
 		
-			d.Resolve();
+		d.Resolve();
 		
-		
-		return d.promise;
+		return p4;
 	}
 	
 	
 	ParseValFile( file) {
-		// Each line looks like this: (y,x,z)=value
-		file.split(/\n/).forEach(function(line) {
-			if (line.length < 4) return; // probably empty line
-			
-			var cI = line.indexOf('('); // coordinate start
-			var cJ = line.indexOf(')'); // coordinate end
-			var vI = line.indexOf('='); // value start
-			
-			if (cI == -1|| cJ == -1 || vI == -1) return; // invalid line
-			
-			var split = line.substring(cI + 1, cJ).split(',');
-			var coord = this.GetCoord(split);
-			var v = parseFloat(line.substr(vI + 1));
-			
-		//	this.val.AddTransition(new TransitionCA(coord, v));
-		}.bind(this));
+	
 	}
 	
 	ParseMaFile( file) {
-		// Dimensions		
-		var dim = null;
-		var raw = file.match(/dim\s*:\s*\((.+)\)/);
-		
-		if (raw) dim = raw[1].split(",")
-		
-		else {
-			var raw_h = file.match(/height\s*:\s*(.+)/);
-			var raw_w = file.match(/width\s*:\s*(.+)/);
-			
-			dim = [raw_h[1], raw_w[1]];
-		}
-		
-		if (dim.length == 2) dim.push(1);
-		
-		this.size = [+dim[1], +dim[0], +dim[2]];
-		
-		
-		
-	//	this.ma = this.MergeFrames(global, rows);
+	
 	}
 	
 	
 	ParsePalFile(file) {	
-		var lines = file.split(/\n/);
-		//simulation.palette = new Palette();
 		
-		if (lines[0].indexOf('[') != -1) this.ParsePalTypeA(this.palette, lines);
-			
-		else this.ParsePalTypeB(this.palette, lines);
 	}	
 	
-	ParsePalTypeA(palette, lines) {
-		// Type A: [rangeBegin;rangeEnd] R G B
-		lines.forEach(function(line) { 
-			// skip it it's probably an empty line
-			if (line.length < 7) return;
-			
-			var begin = parseFloat(line.substr(1));
-			var end   = parseFloat(line.substr(line.indexOf(';') + 1));
-			var rgb = line.substr(line.indexOf(']') + 2).trim().split(' ');
-			
-			// clean empty elements
-			for (var j = rgb.length; j-- > 0;) {
-				if (rgb[j].trim() == "") rgb.splice(j, 1);
-			}			
-			
-			// Parse as decimal int
-			var r = parseInt(rgb[0], 10);
-			var g = parseInt(rgb[1], 10);
-			var b = parseInt(rgb[2], 10);
-			
-		//	palette.AddClass(begin, end, [r, g, b]);
-		});
-	}
-	
-	ParsePalTypeB(palette, lines) {
-		// Type B (VALIDSAVEFILE: lists R,G,B then lists ranges)
-		var paletteRanges = [];
-		var paletteColors =[];
-		
-		for (var i = lines.length; i-->0;){
-			// check number of components per line
-			var components = lines[i].split(',');
-			
-			if(components.length == 2) {
-			// this line is a value range [start, end]
-				// Use parseFloat to ensure we're processing in decimal not oct
-				paletteRanges.push([parseFloat(components[0]), parseFloat(components[1])]); 
-			}
-			else if (components.length == 3){ 
-				//this line is a palette element [R,G,B]
-				// Use parseInt(#, 10) to ensure we're processing in decimal not oct
-				paletteColors.push([parseInt(.95*parseInt(components[0],10)), 
-									parseInt(.95*parseInt(components[1],10)), 
-									parseInt(.95*parseInt(components[2],10))]); 
-			}
-		}
 
-		// populate grid palette object
-		for (var i = paletteRanges.length; i-- > 0;){
-			palette.AddClass(paletteRanges[i][0], paletteRanges[i][1], paletteColors[i]);
-		}
-	}
-		
 	ParseLogChunk( chunk, progress) {
 		var lines = [];
 		var start = chunk.indexOf('Mensaje Y', 0);
@@ -210,13 +116,16 @@ export default class CDpp extends Parser {
 			var coord = this.GetCoord(c);
 			var val = parseFloat(split[4]);
 			var fId = split[1].trim();
-						
-			//var f = simulation.Index(fId) || simulation.AddFrame(new Frame(fId));
+			var model = split[2].substring(0,  split[2].indexOf('(')).trim();
+
+			var a = new TransitionCSV(fId, model, val,"", "","","",val,coord);
+			this.transitionCSV.push(a);			
 			
-			//f.AddTransition(new TransitionCA(coord, val));
+		
+			
 		}.bind(this));
-		//console.log(simulation.frames);
-		this.Emit("Progress", { progress: progress });
+		
+		return this.transitionCSV;
 	}
 	
 	GetCoord(sCoord) {

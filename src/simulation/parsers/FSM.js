@@ -52,7 +52,7 @@ export default class FSM extends Parser {
 			}
 
 		});
-
+console.log(p1);
 	
 		return p1;
 	}
@@ -115,9 +115,9 @@ export default class FSM extends Parser {
 						var p = arr[3].split(":");
 						var phase = p[1].trim();
 
-						var input = "";
+					
 
-					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					var a = new TransitionCSV(frame, model, stateValue,"", output,error,phase,"","");
 					this.transitionCSV.push(a);
 
 					j++;
