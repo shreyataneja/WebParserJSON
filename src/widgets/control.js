@@ -47,11 +47,11 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
  
                 CSVstring += line + '\r\n';
             }
-<<<<<<< HEAD
+
         this.fileName = simulation.name;
 		
 	//	Net.Download(this.fileName + ".csv", CSVstring);
-=======
+
         var log = Array.Find(this.files, function(f) { return f.name.match(/.log/i); });
 		if(log)
 		{
@@ -61,8 +61,8 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 { var txt = Array.Find(this.files, function(f) { return f.name.match(/.txt/i); });
 this.fileName = txt.name.split(".");
 }
-		Net.Download(this.fileName + ".csv", CSVstring);
->>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
+	//	Net.Download(this.fileName + ".csv", CSVstring);
+
 	}
 
 	onLoadClick_Handler(ev) {
