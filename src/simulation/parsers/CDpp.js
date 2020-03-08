@@ -71,47 +71,37 @@ export default class CDpp extends Parser {
 			simulation.val=this.val;
 			simulation.ma=this.ma;
 			
-<<<<<<< HEAD
+
 			simulation.Initialize(info);
 
 			d.Resolve(simulation);
 
-			console.log(simulation);
-			
-			});
-=======
 			});
 		
-		d.Resolve();
->>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
+
 		
-		return p4;
+		return d.promise;
 	}
 	
 	
 	ParseValFile( file) {
-<<<<<<< HEAD
+
 		this.palette=file;
-=======
->>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
+
 	
 	}
 	
 	ParseMaFile( file) {
-<<<<<<< HEAD
+
 		this.ma=file;
-=======
-	
->>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
+
 	}
 	
 	
 	ParsePalFile(file) {	
-<<<<<<< HEAD
+
 		this.val=file;
-=======
-		
->>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
+
 	}	
 	
 
@@ -156,10 +146,7 @@ export default class CDpp extends Parser {
 		}.bind(this));
 		
 		return this.transitionCSV;
-<<<<<<< HEAD
-		
-=======
->>>>>>> fa68f09385376e0a57326c879954900fb6d02f30
+
 	}
 	
 	GetCoord(sCoord) {
