@@ -1,6 +1,4 @@
-# WebParser
+# WebParserJSON
 
-Try the WebParser from the followong link :
-https://shreyataneja.github.io/WebParser/
-# WebParserJSON
-# WebParserJSON
+Try the WebParser in JSON format from the followong link :
+https://shreyataneja.github.io/WebParserJSON/
