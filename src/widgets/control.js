@@ -26,10 +26,10 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 		
 	}
 
-	DownloadCSV(transition)
+	DownloadCSV(simulation)
 	{
-
-		var myJSON = JSON.stringify(transition);
+		var myJSON = JSON.stringify(simulation);
+		console.log(myJSON);
 		 var array = typeof myJSON != 'object' ? JSON.parse(myJSON) : myJSON;
             
   			var keys = [];
@@ -47,9 +47,9 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
  
                 CSVstring += line + '\r\n';
             }
-		this.fileName = this.files[0].name.split(".");
-
-		Net.Download(this.fileName[0] + ".csv", CSVstring);
+        this.fileName = simulation.name;
+		
+	//	Net.Download(this.fileName + ".csv", CSVstring);
 	}
 
 	onLoadClick_Handler(ev) {

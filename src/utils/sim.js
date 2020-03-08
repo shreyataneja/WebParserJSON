@@ -4,9 +4,10 @@ import Lang from './lang.js';
 import CDpp from '../simulation/parsers/CDpp.js';
 import DEVS from '../simulation/parsers/DEVS.js';
 import FSM from '../simulation/parsers/FSM.js';
+import RISE from '../simulation/parsers/RISE.js';
 import ChunkReader from '../components/chunkReader.js';
 
-const PARSERS = [CDpp, FSM, DEVS];
+const PARSERS = [CDpp, FSM, DEVS, RISE];
 
 export default class Sim {
 	

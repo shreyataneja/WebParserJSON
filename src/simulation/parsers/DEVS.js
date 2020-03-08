@@ -3,16 +3,17 @@
 import Lang from '../../utils/lang.js';
 import Array from '../../utils/array.js';
 import Sim from '../../utils/sim.js';
-import Transition from '../transition.js';
 import Parser from "./parser.js";
 import TransitionCSV from '../transitionCSV.js';
 import ChunkReader from '../../components/chunkReader.js';
+import Simulation from '../simulation.js';
+
 
 export default class DEVS extends Parser { 
 		
 	constructor(fileList) {
 		super(fileList);
-		this.transitions = [];
+		this.svg ;
 		this.transitionCSV = [];
 	}
 		
@@ -20,7 +21,7 @@ export default class DEVS extends Parser {
 		var d = Lang.Defer();
 		var log = Array.Find(this.files, function(f) { return f.name.match(/.log/i); });
 		var ma = Array.Find(this.files, function(f) { return f.name.match(/.ma/i); });
-		//var svg = Array.Find(this.files, function(f) { return f.name.match(/.svg/i); });
+		var svg = Array.Find(this.files, function(f) { return f.name.match(/.svg/i); });
 		
 		// TODO : This should reject
 		if (!log || !ma ) d.Resolve(false);
@@ -39,15 +40,14 @@ export default class DEVS extends Parser {
 	
 	Parse(files) {
 		var d = Lang.Defer();
+		var simulation = new Simulation();
 		
-		
-		var ma = Array.Find(files, function(f) { return f.name.match(/.ma/i); });
 		var log = Array.Find(files, function(f) { return f.name.match(/.log/i); });
-		//var svg = Array.Find(files, function(f) { return f.name.match(/.svg/i); });
+		var svg = Array.Find(files, function(f) { return f.name.match(/.svg/i); });
 
-		var p1 = Sim.ParseFile(ma, this.ParseMaFile.bind(this));
-		var p2 = Sim.ParseFileByChunk(log, this.ParseLogChunk.bind(this));
-		//var p3 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
+		
+		var p1 = Sim.ParseFileByChunk(log, this.ParseLogChunk.bind(this));
+		var p2 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
 
 		var defs = [p1, p2];
 	
@@ -59,26 +59,25 @@ export default class DEVS extends Parser {
 				files : files,
 			
 			}
-			
-			this.size = this.ma.models.length;
-			this.models = this.ma.models;
-			
-			d.Resolve();
+
+			simulation.transition = this.transitionCSV;
+			simulation.svg=this.svg;
+			simulation.Initialize(info);
+
+			d.Resolve(simulation);
+
 		});
-		
-		console.log(p2);
 
-		return p2;
+		return d.promise;
 	}
 
-	ParseMaFile( file) {
-		var models = file.match(/(?<=\[).+?(?=\])/g);
+	ParseSVGFile( file) 
+	{	
+		this.svg=file;
 		
-		this.ma = { 
-			models : Array.Map(models, (m) => { return m.toLowerCase(); })
-		};
 	}
-	
+
+
 	ParseLogChunk( chunk, progress) {		
 		var lines = [];
 		var start = chunk.indexOf('Mensaje Y', 0);
@@ -121,13 +120,9 @@ export default class DEVS extends Parser {
 						
 						var input = split[3].trim();
 
-						var error =  "";
 						
-						var phase =  "";
 
-						var output = "";
-
-					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					var a = new TransitionCSV(frame, model, stateValue,input, "","","","","");
 					this.transitionCSV.push(a);
 		
 		}.bind(this));
@@ -148,16 +143,12 @@ export default class DEVS extends Parser {
 						
 						var output = split[3].trim();
 
-						var error =  "";
-						
-						var phase =  "";
 
-						var input =  "";
-
-					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					var a = new TransitionCSV(frame, model, stateValue,"", output,"","","","");
 					this.transitionCSV.push(a);
 		
 		}.bind(this));
+
 return this.transitionCSV;
 	}
 }

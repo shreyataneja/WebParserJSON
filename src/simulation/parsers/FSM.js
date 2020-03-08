@@ -6,6 +6,7 @@ import Sim from '../../utils/sim.js';
 import TransitionCSV from '../transitionCSV.js';
 import Parser from "./parser.js";
 import ChunkReader from '../../components/chunkReader.js';
+import Simulation from '../simulation.js';
 
 export default class FSM extends Parser { 
 		
@@ -18,7 +19,7 @@ export default class FSM extends Parser {
 	IsValid() {		
 		var d = Lang.Defer();
 		var txt = Array.Find(this.files, function(f) { return f.name.match(/.txt/i); });
-		//var svg = Array.Find(this.files, function(f) { return f.name.match(/.svg/i); });
+		var svg = Array.Find(this.files, function(f) { return f.name.match(/.svg/i); });
 		
 		if (!txt) d.Resolve(false);
 		
@@ -34,13 +35,16 @@ export default class FSM extends Parser {
 	}
 	
 	Parse(files) {
-		
+		var d = Lang.Defer();
+		var simulation = new Simulation();
+
+		var svg = Array.Find(files, function(f) { return f.name.match(/.svg/i); });
 		var txt = Array.Find(files, function(f) { return f.name.match(/.txt/i); });
 	
 		var p1 = Sim.ParseFile(txt, this.ParseTxtFile.bind(this));
+		var p2 = Sim.ParseFile(svg, this.ParseSVGFile.bind(this));
 
-
-		var defs = [p1];
+		var defs = [p1,p2];
 	
 		Promise.all(defs).then((data) => {
 			
@@ -50,11 +54,23 @@ export default class FSM extends Parser {
 				files : files,
 			
 			}
+	
+			simulation.transition = this.transitionCSV;
+			simulation.svg=this.svg;
+			simulation.Initialize(info);
+
+			d.Resolve(simulation);
 
 		});
 
 	
-		return p1;
+		return d.promise;
+
+	}
+	
+	ParseSVGFile( file) 
+	{
+		this.svg=file;
 	}
 
 	
@@ -115,9 +131,9 @@ export default class FSM extends Parser {
 						var p = arr[3].split(":");
 						var phase = p[1].trim();
 
-						var input = "";
+					
 
-					var a = new TransitionCSV(frame, model, stateValue,input, output,error,phase);
+					var a = new TransitionCSV(frame, model, stateValue,"", output,error,phase,"","");
 					this.transitionCSV.push(a);
 
 					j++;
