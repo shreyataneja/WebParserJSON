@@ -60,9 +60,8 @@ export default class DEVS extends Parser {
 			
 			var info = {
 				simulator : "DEVS",
-				name : log.name.replace(/\.[^.]*$/, ''),
-				files : files,
-			
+				simulatorName : log.name.replace(/\.[^.]*$/, ''),
+				
 			}
 
 
@@ -82,17 +81,7 @@ export default class DEVS extends Parser {
 		this.svg=file;
 		
 	}
-						
-
-//	ParseSVGFile( file) 
-//	{	
-	//	this.svg=file;
-		//var a = new TransitionCSV("", "", "","", "","","","","",this.svg);
-		//this.transitionCSV.push(a);
-		
-	//}
-
-
+				
 
 	ParseLogChunk( chunk, progress) {		
 		var lines = [];
@@ -138,7 +127,7 @@ export default class DEVS extends Parser {
 
 						
 
-					var a = new TransitionCSV(frame, model, stateValue,input, "","","","","");
+					var a = new TransitionCSV(frame, model, stateValue,input, "","","","");
 					this.transitionCSV.push(a);
 		
 		}.bind(this));
@@ -160,7 +149,7 @@ export default class DEVS extends Parser {
 						var output = split[3].trim();
 
 
-					var a = new TransitionCSV(frame, model, stateValue,"", output,"","","","");
+					var a = new TransitionCSV(frame, model, stateValue,"", output,"","","");
 					this.transitionCSV.push(a);
 		
 		}.bind(this));

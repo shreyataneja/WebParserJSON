@@ -4,6 +4,7 @@ import Lang from '../utils/lang.js';
 import Array from '../utils/array.js';
 import Widget from '../ui/widget.js';
 import Dropzone from './dropzone.js';
+import SimulationJSON from './simulationJSON.js';
 import Net from '../utils/net.js';
 
 export default Lang.Templatable("Widget.Control", class Control extends Widget { 
@@ -17,25 +18,24 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 		this.files = null;
 		this.config = null;
 		this.parser = null;
-		this.collapsed = false;
-		this.csv= "";
-		
+		this.simulationJSON = new SimulationJSON();
 		this.Node("dbSave").addEventListener("click", this.onLoadClick_Handler.bind(this));
 		this.Node("dropzone").On("Change", this.onDropzoneChange_Handler.bind(this));
 		
 		
 	}
 
-	DownloadCSV(simulation)
+	DownloadJOSN(simulation)
 	{
-		var myJSON = JSON.stringify(simulation);
-		console.log(myJSON);
+		
+		var myJSON = JSON.stringify(simulation.transition);
+		
 		 var array = typeof myJSON != 'object' ? JSON.parse(myJSON) : myJSON;
             
   			var keys = [];
-   			for(var index in array[0]) keys.push(index);
-   				var CSVstring = keys.join();
-   			CSVstring +=   '\r\n';
+   		
+   			var CSVstring = '';
+   			
             for (var i = 0; i < array.length; i++) {
                 var line = '';
                 for (var index in array[i]) {
@@ -48,26 +48,83 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
                 CSVstring += line + '\r\n';
             }
 
-        this.fileName = simulation.name;
-		
-	//	Net.Download(this.fileName + ".csv", CSVstring);
+		this.simulationJSON.size = simulation.size;
+		this.simulationJSON.simulatorName = simulation.simulatorName;
+		this.simulationJSON.simulator = simulation.simulator;
+		this.simulationJSON.palette = simulation.palette;
+		// basic auth
 
-        var log = Array.Find(this.files, function(f) { return f.name.match(/.log/i); });
-		if(log)
+		var gh = new GitHub({
+		   username: 'shreyataneja',
+		   password: 'kriti98825'
+		   /* also acceptable:
+		      token: 'MY_OAUTH_TOKEN'
+		    */
+		});
+
+		if(simulation.svg != null)
 		{
-			this.fileName = log.name.split(".");
-		}
-		else
-{ var txt = Array.Find(this.files, function(f) { return f.name.match(/.txt/i); });
-this.fileName = txt.name.split(".");
-}
-	//	Net.Download(this.fileName + ".csv", CSVstring);
+		var gist_var_svg = {
+		   public: true,
+		   description: 'SVG gist',
+		   files: {
+		      "SVGfile.svg": {
+		         content: String(simulation.svg)
+		      }
+		   }
+		};
+		let gist_svg = gh.getGist(); // not a gist yet
+		gist_svg.create(gist_var_svg).then(function({data}) {
+		this.setSVGURL(data.url);
+		}.bind(this));
+
+ 		}
+		var gist_var_csv = {
+		   public: true,
+		   description: 'CSV gist',
+		   files: {
+		      "CSVfile.csv": {
+		         content: String(CSVstring)
+		      }
+		   }
+		};
+		
+		let gist = gh.getGist(); // not a gist yet
+		gist.create(gist_var_csv).then(function({data}) {
+		 this.setCSVURL(data.url);
+		}.bind(this));
+
+
+//fetch('https://api.github.com/gists/e9ba9e011a4c2f5513f4fd35fe37a857')
+ // .then(results => {
+   // return results.json();
+  //})
+  //.then(data => {
+   // console.log(data.files["CSVfile.csv"].content);
+  //});
 
 	}
+setCSVURL(url)
+{
+	
+	 this.simulationJSON.transitionCsvUrl = url;
+		this.Download();
+}
+setSVGURL(url)
+{
+	
+	this.simulationJSON.svgUrl = url;
+	
+}
+Download()
+{
+	var simJSON = this.simulationJSON ;
 
+	Net.Download(this.simulationJSON.simulatorName + ".json", JSON.stringify(simJSON));
+}
 	onLoadClick_Handler(ev) {
 		
-		this.parser.Parse(this.files).then((ev) => { this.DownloadCSV(ev.result); });
+		this.parser.Parse(this.files).then((ev) => { this.DownloadJOSN(ev.result); });
 		
 		this.Emit("Save");	
 	}

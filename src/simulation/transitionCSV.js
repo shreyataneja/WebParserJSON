@@ -2,7 +2,7 @@
 
 export default class TransitionCSV { 
 
-	constructor(frame, model, stateValue, input, output, errorMsg, phase,diff, coord) {
+	constructor(frame, model, stateValue, input, output, phase,diff, coord) {
 
 		this.frame = frame;
 		if(coord != "" ){
@@ -15,7 +15,6 @@ export default class TransitionCSV {
 		this.stateValue = stateValue;
 		this.input = input;
 		this.output = output;
-		this.errorMsg = errorMsg;
 		this.phase = phase;
 		this.diff = diff;
 		if(coord != "" )
@@ -41,10 +40,6 @@ export default class TransitionCSV {
 	
 	get Output() {
 		return this.output;
-	}
-
-	get ErrorMsg() {
-		return this.errorMsg;
 	}
 
 	get Phase() {

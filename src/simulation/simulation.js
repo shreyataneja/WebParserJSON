@@ -12,11 +12,11 @@ export default class Simulation extends Evented {
 		
 		this.svg = null;
 		this.transition = null;
-		this.val = null;
-		this.ma = null;
+		
+		this.size = null;
 
-		this.name = null;
-		this.files = null;
+		this.simulatorName = null;
+		
 		this.simulator = null;
 		
 		this.palette = null;
@@ -25,9 +25,7 @@ export default class Simulation extends Evented {
 	
 	Initialize(info) {
 		this.simulator = info.simulator;
-		this.name = info.name;
-		this.files = info.files;
-		
+		this.simulatorName = info.simulatorName;
 	}
 	
 	

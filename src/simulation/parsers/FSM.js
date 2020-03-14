@@ -50,8 +50,7 @@ export default class FSM extends Parser {
 			
 			var info = {
 				simulator : "FSM",
-				name : txt.name.replace(/\.[^.]*$/, ''),
-				files : files,
+				simulatorName : txt.name.replace(/\.[^.]*$/, ''),
 			
 			}
 	
@@ -125,15 +124,13 @@ export default class FSM extends Parser {
 						var o = arr[1].split(":");
 						var output = o[1].trim();
 
-						var e = arr[2].split(":");
-						var error = e[1].trim();
 
 						var p = arr[3].split(":");
 						var phase = p[1].trim();
 
 					
 
-					var a = new TransitionCSV(frame, model, stateValue,"", output,error,phase,"","");
+					var a = new TransitionCSV(frame, model, stateValue,"", output,phase,"","");
 					this.transitionCSV.push(a);
 
 					j++;
