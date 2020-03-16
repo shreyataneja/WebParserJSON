@@ -15,6 +15,8 @@ export default class DEVS extends Parser {
 		super(fileList);
 		this.svg ;
 		this.transitionCSV = [];
+		this.models = [];
+		this.modelsArray =[];
 	}
 		
 	IsValid() {		
@@ -68,7 +70,7 @@ export default class DEVS extends Parser {
 			simulation.transition = this.transitionCSV;
 			simulation.svg=this.svg;
 			simulation.Initialize(info);
-
+			simulation.size = this.models.length;
 			d.Resolve(simulation);
 
 		});
@@ -151,9 +153,25 @@ export default class DEVS extends Parser {
 
 					var a = new TransitionCSV(frame, model, stateValue,"", output,"","","");
 					this.transitionCSV.push(a);
-		
+					this.modelsArray.push(model);
 		}.bind(this));
-
+var j = 0,k=0;
+        var count = 0; 
+        var start = false; 
+          
+        for (j = 0; j < this.modelsArray.length; j++) { 
+            for (k = 0; k < this.models.length; k++) { 
+                if ( this.modelsArray[j] == this.models[k] ) { 
+                    start = true; 
+                } 
+            } 
+            count++; 
+            if (count == 1 && start == false) { 
+                this.models.push(this.modelsArray[j]); 
+            } 
+            start = false; 
+            count = 0; 
+        } 
 return this.transitionCSV;
 	}
 }

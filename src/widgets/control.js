@@ -26,19 +26,17 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 	}
 
 	DownloadJOSN(simulation)
-	{
-		
+	{	
 		var myJSON = JSON.stringify(simulation.transition);
 		
 		 var array = typeof myJSON != 'object' ? JSON.parse(myJSON) : myJSON;
-            
-  			var keys = [];
-   		
+     
    			var CSVstring = '';
    			
-            for (var i = 0; i < array.length; i++) {
+            for (var i = 0; i < array.length-1; i++) {
                 var line = '';
                 for (var index in array[i]) {
+
                     if (line != '') line += ','
  
                     line += array[i][index];
@@ -47,6 +45,18 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
  
                 CSVstring += line + '\r\n';
             }
+//for last line
+              var line = '';
+                for (var index in array[i]) {
+
+                    if (line != '') line += ','
+ 
+                    line += array[i][index];
+
+                }
+ 
+                CSVstring += line;
+
 
 		this.simulationJSON.size = simulation.size;
 		this.simulationJSON.simulatorName = simulation.simulatorName;
@@ -94,16 +104,8 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 		 this.setCSVURL(data.url);
 		}.bind(this));
 
-
-//fetch('https://api.github.com/gists/e9ba9e011a4c2f5513f4fd35fe37a857')
- // .then(results => {
-   // return results.json();
-  //})
-  //.then(data => {
-   // console.log(data.files["CSVfile.csv"].content);
-  //});
-
 	}
+
 setCSVURL(url)
 {
 	
@@ -147,19 +149,13 @@ Download()
 	
 	onParserDetected_Handler(ev) {
 		this.parser = ev.result;
-	//	console.log(this.parser);
-		var json = Array.Find(this.files, function(f) { return f.name.match(/.json/i); });
-		
-		var success = this.onConfigParsed_Handler.bind(this);
-		var failure = this.onError_Handler.bind(this);
-		
-		Sim.ParseFile(json, (d) => { return JSON.parse(d); }).then(success, failure);
-		
+	
+		this.onConfigParsed_Handler(ev);
 	}
 	
 	
 	onError_Handler(ev) {
-		// TODO : Probably handle error here, alert message or something.
+
 		this.Node("dropzone").Reset();
 		
 		alert(ev.error.toString());
