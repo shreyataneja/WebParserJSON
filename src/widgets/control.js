@@ -46,6 +46,7 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
                 CSVstring += line + '\r\n';
             }
 //for last line
+
               var line = '';
                 for (var index in array[i]) {
 
@@ -59,10 +60,12 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 
 
 		this.simulationJSON.size = simulation.size;
-		this.simulationJSON.simulatorName = simulation.simulatorName;
+		this.simulationJSON.modelName = simulation.simulatorName;
 		this.simulationJSON.simulator = simulation.simulator;
-		this.simulationJSON.palette = simulation.palette;
-		// basic auth
+		this.simulationJSON.style = simulation.palette;
+	
+
+		// // basic auth
 
 		var gh = new GitHub({
 		   username: 'shreyataneja',
@@ -109,20 +112,48 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 setCSVURL(url)
 {
 	
-	 this.simulationJSON.transitionCsvUrl = url;
+	 this.simulationJSON.log = url;
 		this.Download();
 }
 setSVGURL(url)
 {
 	
-	this.simulationJSON.svgUrl = url;
+	this.simulationJSON.svg = url;
 	
 }
 Download()
 {
-	var simJSON = this.simulationJSON ;
 
-	Net.Download(this.simulationJSON.simulatorName + ".json", JSON.stringify(simJSON));
+		
+		var styleJson = [];
+		if(this.simulationJSON.style)
+		for( var i = 0 ; i < this.simulationJSON.style.length ; i++)
+		{
+			console.log(this.simulationJSON.style[i][0]);
+	
+   				var rangeValue = [this.simulationJSON.style[i][0],this.simulationJSON.style[i][1]];
+
+  				var colorValue = this.simulationJSON.style[i][2];
+  		
+			styleJson.push({range : rangeValue,color : colorValue});
+		}
+
+	var simJSON = JSON.stringify({ 
+			files : {
+				svg : this.simulationJSON.svg,
+				log : this.simulationJSON.log
+			},
+			simulator : this.simulationJSON.simulator, 
+			model : {
+				name : this.simulationJSON.modelName,
+				size : this.simulationJSON.size 
+			}
+			,
+			style : styleJson
+				
+			
+		});;
+	Net.Download(this.simulationJSON.modelName + ".json", simJSON);
 }
 	onLoadClick_Handler(ev) {
 		

@@ -5,16 +5,16 @@ export default class SimulationJSON {
 	constructor(svgLink, transitionCSVLink, size, simulator, simulatorName, palette) {
 	
 		
-		this.svgUrl = null;
-		this.transitionCsvUrl = null;
+		this.svg = null;
+		this.log = null;
 		
 		this.size = null;
 
-		this.simulatorName = null;
+		this.modelName = null;
 		
 		this.simulator = null;
 		
-		this.palette = null;
+		this.style = null;
 	
 		
 	}

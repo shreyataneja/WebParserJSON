@@ -124,9 +124,9 @@ export default class FSM extends Parser {
 						
 
 						var o = arr[1].split(":");
-						var output = o[1].trim();
+						var output = o[1].trim().replace(",", " +");;
 
-
+						
 						var p = arr[3].split(":");
 						var phase = p[1].trim();
 
