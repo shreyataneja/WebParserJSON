@@ -19,6 +19,7 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 		this.config = null;
 		this.parser = null;
 		this.simulationJSON = new SimulationJSON();
+
 		this.Node("dbSave").addEventListener("click", this.onLoadClick_Handler.bind(this));
 		this.Node("dropzone").On("Change", this.onDropzoneChange_Handler.bind(this));
 		
@@ -62,65 +63,27 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 		this.simulationJSON.size = simulation.size;
 		this.simulationJSON.modelName = simulation.simulatorName;
 		this.simulationJSON.simulator = simulation.simulator;
-		this.simulationJSON.style = simulation.palette;
+		this.simulationJSON.style = simulation.palette ;
 	
-
-		// // basic auth
-
-		var gh = new GitHub({
-		   username: 'shreyataneja',
-		   password: 'kriti98825'
-		   /* also acceptable:
-		      token: 'MY_OAUTH_TOKEN'
-		    */
-		});
-
-		if(simulation.svg != null)
-		{
-		var gist_var_svg = {
-		   public: true,
-		   description: 'SVG gist',
-		   files: {
-		      "SVGfile.svg": {
-		         content: String(simulation.svg)
-		      }
-		   }
-		};
-		let gist_svg = gh.getGist(); // not a gist yet
-		gist_svg.create(gist_var_svg).then(function({data}) {
-		this.setSVGURL(data.url);
-		}.bind(this));
-
- 		}
-		var gist_var_csv = {
-		   public: true,
-		   description: 'CSV gist',
-		   files: {
-		      "CSVfile.csv": {
-		         content: String(CSVstring)
-		      }
-		   }
-		};
+		if(simulation.svg)
+		var p1 = Net.CreateGistSVG(String(simulation.svg));
+		var p2 = Net.CreateGistCSV(String(CSVstring));
+		Promise.all([p1,p2]).then((data) => {
+			
+			this.setCSVURL (data[0], data[1]) ;
+		});	
 		
-		let gist = gh.getGist(); // not a gist yet
-		gist.create(gist_var_csv).then(function({data}) {
-		 this.setCSVURL(data.url);
-		}.bind(this));
-
+			
 	}
 
-setCSVURL(url)
+setCSVURL(SVGurl, CSVurl)
 {
-	
-	 this.simulationJSON.log = url;
-		this.Download();
+	this.simulationJSON.svg = SVGurl;
+	this.simulationJSON.log = CSVurl;
+	this.Download();
+
 }
-setSVGURL(url)
-{
-	
-	this.simulationJSON.svg = url;
-	
-}
+
 Download()
 {
 
@@ -129,7 +92,7 @@ Download()
 		if(this.simulationJSON.style)
 		for( var i = 0 ; i < this.simulationJSON.style.length ; i++)
 		{
-			console.log(this.simulationJSON.style[i][0]);
+	
 	
    				var rangeValue = [this.simulationJSON.style[i][0],this.simulationJSON.style[i][1]];
 
@@ -138,7 +101,7 @@ Download()
 			styleJson.push({range : rangeValue,color : colorValue});
 		}
 
-	var simJSON = JSON.stringify({ 
+		var simJSON = JSON.stringify({ 
 			files : {
 				svg : this.simulationJSON.svg,
 				log : this.simulationJSON.log
@@ -153,7 +116,9 @@ Download()
 				
 			
 		});;
+	
 	Net.Download(this.simulationJSON.modelName + ".json", simJSON);
+
 }
 	onLoadClick_Handler(ev) {
 		

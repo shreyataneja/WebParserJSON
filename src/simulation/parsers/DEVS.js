@@ -129,7 +129,7 @@ export default class DEVS extends Parser {
 
 						
 
-					var a = new TransitionCSV(frame, model, stateValue,input, "","","","");
+					var a = new TransitionCSV(frame, model, stateValue,input,"", "","","");
 					this.transitionCSV.push(a);
 		
 		}.bind(this));

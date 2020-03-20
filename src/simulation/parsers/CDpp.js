@@ -67,7 +67,7 @@ export default class CDpp extends Parser {
 			simulation.transition = this.transitionCSV;
 			simulation.palette=this.palette;
 			simulation.size=this.size;
-			
+	
 
 			simulation.Initialize(info);
 

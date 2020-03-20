@@ -2,6 +2,7 @@ import Lang from './lang.js';
 
 export default class Net {
 	
+
 	/**
 	* Execute a web request
 	*
@@ -76,5 +77,58 @@ export default class Net {
 		link.download = name;
 		link.click();
 		link = null;
+	}
+
+	static CreateGistSVG(svg)
+	{	var gh = new GitHub({
+		   username: 'shreyataneja',
+		   password: 'kriti98825'
+		   /* also acceptable:
+		      token: 'MY_OAUTH_TOKEN'
+		    */
+		});
+	
+		var gist_var_svg = {
+		   public: true,
+		   description: 'SVG gist',
+		   files: {
+		      "SVGfile.svg": {
+		         content: svg
+		      }
+		   }
+		};
+		let gist_svg = gh.getGist(); // not a gist yet
+		var p = gist_svg.create(gist_var_svg).then(function({data}) {
+		return data.url;
+		}.bind(this));
+
+ 		return p;
+	}
+
+
+	static CreateGistCSV( CSVstring)
+	{
+		var gh = new GitHub({
+		   username: 'shreyataneja',
+		   password: 'kriti98825'
+		   /* also acceptable:
+		      token: 'MY_OAUTH_TOKEN'
+		    */
+		});
+		var gist_var_csv = {
+		   public: true,
+		   description: 'CSV gist',
+		   files: {
+		      "CSVfile.csv": {
+		         content: CSVstring
+		      }
+		   }
+		};
+		
+		let gist = gh.getGist(); // not a gist yet
+		var p = gist.create(gist_var_csv).then(function({data}) {
+		 return data.url;
+		}.bind(this));
+		return p;
 	}
 }
