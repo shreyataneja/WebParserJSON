@@ -138,7 +138,7 @@ export default class CDpp extends Parser {
 
 		lines.forEach(function(line) { 
 
-			console.log(line);
+			
 			// skip it it's probably an empty line
 			if (line.length < 7) return;
 			

@@ -29,7 +29,7 @@ export default Lang.Templatable("Widget.Control", class Control extends Widget {
 	DownloadJOSN(simulation)
 	{	
 		var myJSON = JSON.stringify(simulation.transition);
-		
+		console.log(simulation.transition);
 		 var array = typeof myJSON != 'object' ? JSON.parse(myJSON) : myJSON;
      
    			var CSVstring = '';

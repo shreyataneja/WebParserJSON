@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="564px" height="458px" 
+viewBox="-0.5 -0.5 564 458" content="&lt;mxfile host=&quot;www.draw.io&quot; modified=&quot;2020-01-12T20:27:06.013Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36&quot; etag=&quot;XOsK9hkYrths385aoKWI&quot; version=&quot;12.5.1&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;fqOnjLlG99ZGk2nUenSX&quot; name=&quot;Page-1&quot;&gt;7Vtdk9smFP01ftyMJCSt/ej1bpJOm26mbqZN34iFLbVIKAiv7f76ggX6ANnVZozlUfK04gIC7jnnckHeCVik+3cU5vEHEiE88ZxoPwGPE89zHc/nf4TlUFoC9740bGgSyUa1YZn8i1RPad0mESpaDRkhmCV527giWYZWrGWDlJJdu9ma4PaoOdwgw7BcQWxa/0giFpfWaeDU9vco2cRqZNeRNSlUjaWhiGFEdg0TeJqABSWElU/pfoGwcJ7yS9nv7YnaamIUZaxPh09Fhp2/1tOHu6Uff/24/vRTTu+m5VteIN7KBcvJsoPyAIq4Q2SRUBaTDckgfqqtD5RsswiJYRxeqtv8QkjOjS43/o0YO0h04ZYRbopZimUtXwE9/Cn7HwufReFNoIqP+2bl40GWyrmKCZ70iTQVZEtX6IwjFLcg3SB2ph2okOOURyRFfD68H0UYsuSlPQ8oubep2lVdP5KEz9BzpE48xRqpknun/YZyWrJTjfGcUnhoNMtFg6L/MGGLMfyhfKEqNVZYm46segXD3B4Mw5jLWTBpFycMLXN4hGrHI0qbJ7DIS42vk73gmyTAC6IM7c9TwIRMdQjbPnGVtHcNuUtT3FD61DkNcsOjr3eYctDAmrygtjwrmnGnGnB2NBO6ncO8fd2srEqsD2GGlFhwr/kEDCwxBemPbQ/03PYCKxIGOjF0xC+kYX2c62x8o4vjdnKfYHYiOlyYBPo44flAfmpaVjkDbjySA6AJaehAfhvnlwtqzLeiMU9LYjxLGtPHAf55kZ2al1WR+bcuMu2UVpUHU1kfj10zXaozpM+tBMl6uhRM+qVLoRUVh56mllk/FV8sowlviwfuZKi0uS8P7ETzQAsQvqWjrz6OFs3tROfgxqOzr90XDZ4DqfHHkwPZiZ76zYytHEgfx3euoJo+kXlI1YR+dygZTjV9cposmotPSLy0wrAoktW3Ud70SmPVQceqlc3yDWkpRIPw//+e4DrKmV3j7tTcb35HaY4oZFuKlogZrOAiYG0eFIySf9CCYEK5JSOZENk6wVgzQZxsMkEmTg/E7Q9CUskK4rmsSJMowqcU2o7QF9CkAevU1KTfwU49bl5Ok2YUWzw/Iiaikec8/zxeKICW2YOOG/IuKDxrUNwbULxHkLvqORsvCr6eIXR8CrwuCrNzgphjSNPxohFqiXZ1iT8UGkqTDTTmCxGYRiwJ4xY8HBoE8/cEjf164oVYOP4L5U8b8bREGc95R4sPCNr4DB2xgNcJD0cDpsIBR0x+Q2vEF7hCZdVYsTGuT4bGxvy6dMxvnQoP/iwgeTNeTPQPDrOhMTGPoS294O9IL77+S5vBN3zzbLi
+A9Avh+73zgWRkn0RCMmVCxj0xWmT0LMAbHJmOk2IHMr8S9l3g42uf5cHgWZp5fKxSM5WZKcOaHO+AalzCr1uiKu6K433znDdw/XxfV6q3zLeMpJD7Xu5dVSLoLHh3SjBGVI3El1IO1p4ANzcmNVaO6L9z9TtuYEHXZeQ3kIQX69+1lzd19X8HgKf/AA==&lt;/diagram&gt;&lt;/mxfile&gt;" style="background-color: rgb(255, 255, 255);"><defs/>
+<g>
+<path model="Sensing Room Temp." d="M 43 147 L 43 57 L 166.63 57" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 171.88 57 L 164.88 60.5 L 166.63 57 L 164.88 53.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<ellipse model = "TempSet" cx="43" cy="187" rx="40" ry="40" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+<path d="M 453 127 L 453 7 L 29.37 7" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 24.12 7 L 31.12 3.5 L 29.37 7 L 31.12 10.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<ellipse model = "AirCondOn" cx="453" cy="167" rx="40" ry="40" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+<path model = "Heater Turned ON" d="M 213 97 L 213 257 L 296.63 257" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 301.88 257 L 294.88 260.5 L 296.63 257 L 294.88 253.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<path model = "AC ON" d="M 253 57 L 433 57 L 433 120.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 433 125.88 L 429.5 118.88 L 433 120.63 L 436.5 118.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<ellipse model = "TempSense"  cx="213" cy="57" rx="40" ry="40" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+<path d="M 143 337 L 53 337 L 53 233.37" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 53 228.12 L 56.5 235.12 L 53 233.37 L 49.5 235.12 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<ellipse model = "CODetectOk" cx="183" cy="337" rx="40" ry="40" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+<path model = "CO Detected" d="M 383 257 L 523 257 L 523 330.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 523 335.88 L 519.5 328.88 L 523 330.63 L 526.5 328.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<path model = "CO Not Detected" d="M 343 297 L 343 337 L 229.37 337" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 224.12 337 L 231.12 333.5 L 229.37 337 L 231.12 340.5 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<ellipse model = "HeaterOn" cx="343" cy="257" rx="40" ry="40" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+<path d="M 488.36 397 L 23 397 L 23 233.37" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 23 228.12 L 26.5 235.12 L 23 233.37 L 19.5 235.12 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<ellipse model = "CODetectAlarm" cx="523" cy="377" rx="40" ry="40" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+<path d="M 23 7 L 23 77 Q 23 87 23 97 L 23 140.63" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+<path d="M 23 145.88 L 19.5 138.88 L 23 140.63 L 26.5 138.88 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+<rect x="23" y="177" width="40" height="30" fill="none" stroke="none" pointer-events="all"/><g transform="translate(-0.5 -0.5)">
+<switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 192px; margin-left: 25px;">
+<div style="box-sizing: border-box; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">TemperatureSet</div></div></div>
+</foreignObject><text x="43" y="196" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">Temper...</text></switch></g><rect x="163" y="327" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 337px; margin-left: 165px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">CODetect OK</div></div></div>
+</foreignObject><text x="183" y="341" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">CODete...</text></switch></g>
+<rect x="323" y="247" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 257px; margin-left: 325px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+HeaterOn</div></div></div></foreignObject><text x="343" y="261" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">Heater...</text></switch></g>
+<rect x="503" y="367" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 377px; margin-left: 505px;">
+<div style="box-sizing: border-box; text-align: center; "><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">CODetect Alarm</div></div></div></foreignObject>
+<text x="523" y="381" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">CODete...</text></switch></g><rect x="433" y="157" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 167px; margin-left: 435px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">AC On</div></div></div></foreignObject>
+<text x="453" y="171" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">AC On</text></switch></g>
+<rect x="193" y="47" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 57px; margin-left: 195px;"><div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Temperature<br />Sense</div></div></div></foreignObject><text x="213" y="61" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">Temper...</text></switch></g>
+<rect x="343" y="27" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 37px; margin-left: 345px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Temp&gt;ReferenceTemp</div></div></div></foreignObject>
+<text x="363" y="41" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">Temp&gt;R...</text></switch></g>
+<rect x="53" y="87" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 97px; margin-left: 55px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Set Reference Temp.</div></div></div></foreignObject>
+<text x="73" y="101" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">Set Re...</text></switch></g>
+<rect x="253" y="167" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 177px; margin-left: 255px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+Temp&lt;ReferenceTemp</div></div></div></foreignObject><text x="273" y="181" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">
+Temp&lt;R...</text></switch></g><rect x="433" y="267" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 277px; margin-left: 435px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+Carbon Monoxide Detected</div></div></div></foreignObject>
+<text x="453" y="281" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">Carbon...</text></switch></g>
+<rect x="273" y="357" width="40" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 36px; height: 1px; padding-top: 367px; margin-left: 275px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Carbon Monoxide Not Detected</div></div></div></foreignObject>
+<text x="293" y="371" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">Carbon...</text></switch></g>
+<rect x="3" y="437" width="350" height="20" fill="none" stroke="none" pointer-events="all"/>
+<g transform="translate(-0.5 -0.5)"><switch><foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+<div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 346px; height: 1px; padding-top: 447px; margin-left: 5px;">
+<div style="box-sizing: border-box; text-align: center; ">
+<div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+<b><font style="font-size: 14px">Automatic Temperature Controller</font></b></div></div></div></foreignObject>
+<text x="178" y="451" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">Automatic Temperature Controller</text></switch></g></g></svg>
